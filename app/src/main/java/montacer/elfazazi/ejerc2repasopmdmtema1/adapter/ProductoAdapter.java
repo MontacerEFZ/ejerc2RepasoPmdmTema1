@@ -43,7 +43,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
                 )
         );
 
-        return new ProductVH(productView);
+        return new ProductVH(productView); //g
     }
 
     @Override
