@@ -42,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        listaProductos = new ArrayList<>();
+        inicializarLaunchers();
+
         adapter = new ProductoAdapter(listaProductos, R.layout.product_view_tablamain, MainActivity.this); //adapter siempre despues de inicializar el arraylist
         //este es el contructor del ProductAdapter, le pasamos: la lista, que vista queremos mostrar q es el resource y donde queremos mostrarla que es en el main
 
@@ -58,8 +61,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        listaProductos = new ArrayList<>();
-        inicializarLaunchers();
+
 }
 
     private void inicializarLaunchers() {
@@ -67,9 +69,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onActivityResult(ActivityResult result) {
                 if (result.getResultCode() == RESULT_OK){
+                    int cantidadProductos = 0;
                     if (result.getData() != null && result.getData().getExtras() != null){
                         Producto producto = (Producto) result.getData().getExtras().getSerializable("PRODUCTO");
                         listaProductos.add(0,producto);
+
+                        float cant = 0;
+                        float prec = 0;
+                        float tot = 0;
+
+                        for (int i = 0; i < listaProductos.size(); i++) {
+                            cantidadProductos += producto.getCantidad();
+                            cant = producto.getCantidad();
+                            prec= producto.getPrecio();
+                            tot = cant*prec;
+                        }
+                        binding.contentMain.txtTotalProductosProductView.setText(String.valueOf(cantidadProductos));
+                        binding.contentMain.txtTotalImporteProductosProductView.setText(String.valueOf(tot));
+
+
                        adapter.notifyItemInserted(0);
                     }
                 }else{

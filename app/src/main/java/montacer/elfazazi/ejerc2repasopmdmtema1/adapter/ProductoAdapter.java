@@ -50,16 +50,11 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
     public void onBindViewHolder(@NonNull ProductVH holder, int position) {
         Producto producto = objects.get(position);
 
-        holder.lbCantidadProductos.setText(String.valueOf(objects.size()));
 
-        int contador = 0;
-        for (int i = 0; i < objects.size(); i++) {
-            contador+= producto.getPrecio();
-        }
-        holder.lbImporteTotalProductos.setText(String.valueOf(contador));
+
         holder.lbNombreProducto.setText(producto.getNombre());
         holder.lbPrecioProducto.setText(String.valueOf(producto.getPrecio()));
-        holder.lbPrecioProducto.setText(String.valueOf(producto.getCantidad()));
+        holder.lbCantidadProducto.setText(String.valueOf(producto.getCantidad()));
 
 
         holder.fila.setOnClickListener(new View.OnClickListener() {
